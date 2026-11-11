@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ÉcoleLien · Résultats du pilote</title>
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--green:#0b6049;--deep:#103f39;--gold:#b37a35;--ink:#202b38;--muted:#525d6b;--line:#dfe7dc;--bg:#f5f7f3;--card:#fff;--ok:#1d6b45;--ok-soft:#e5f3ea;--amber:#8a5a12;--amber-soft:#fdf3dd;--red:#a8402f;--red-soft:#fbeae6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e8efe9;--muted:#a9b8ae;--line:#34413b;--bg:#151a18;--card:#1f2724;--ok-soft:#1e3328;--amber-soft:#3a3019;--red-soft:#3d2420}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--deep);color:#fff;padding:22px 16px}
+header .wrap{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between}
+h1{margin:0;font-size:24px;letter-spacing:-.4px}h1 span{color:#e3b26e}
+header p{margin:4px 0 0;opacity:.85;font-size:13px}
+main{max-width:1100px;margin:0 auto;padding:16px}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+button,select{font:inherit;min-height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:0 14px;cursor:pointer}
+button.primary{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:4px 0 18px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.kpi b{display:block;font-size:26px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12.5px;color:var(--muted)}
+h2{font-size:17px;margin:22px 0 10px}
+.scroll{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:13.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;background:color-mix(in srgb,var(--card) 92%,var(--gold))}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.st{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;margin:1px 4px 1px 0;white-space:nowrap}
+.st.seul{background:var(--ok-soft);color:var(--ok)}.st.aide{background:var(--amber-soft);color:var(--amber)}.st.echec{background:var(--red-soft);color:var(--red)}
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden;display:flex;min-width:120px}
+.bar i{display:block;height:100%}
+.empty,.err{padding:24px;text-align:center;color:var(--muted)}
+.err{color:var(--red)}
+.note{color:var(--muted);font-size:12.5px;max-width:280px}
+details summary{cursor:pointer;color:var(--green);font-weight:600}
+details ol{margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--muted)}
+footer{max-width:1100px;margin:0 auto;padding:6px 16px 30px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div><h1>École<span>Lien</span> · Résultats du pilote</h1><p>Séances enregistrées en mode facilitateur. Codes participants uniquement, aucune donnée personnelle.</p></div>
+<div class="tools"><select id="role" aria-label="Profil"><option value="">Tous les profils</option><option value="parent">Parents</option><option value="student">Élèves</option><option value="teacher">Enseignants</option><option value="admin">Direction</option></select><button onclick="load()">Actualiser</button><button class="primary" onclick="exportCsv()">Exporter CSV</button></div></div></header>
+<main>
+<div id="out"><p class="empty">Chargement…</p></div>
+</main>
+<footer>Données de test fictives · « Seul » = réussi sans aide · durées en secondes.</footer>
+<script src="config.js"></script>
+<script>
+'use strict';
+const DB=(window.ECOLELIEN_CONFIG?.databaseURL||'').replace(/\/+$/,'');
+const ROLE={parent:'Parent',student:'Élève',teacher:'Enseignant',admin:'Direction'};
+const ST={seul:'Seul',aide:'Avec aide',echec:'Échec'};
+const LANG={fr:'Français',wo:'Wolof','fr-wo':'Français et wolof'},DEV={android:'Android',iphone:'iPhone',other:'Autre'};
+let rows=[];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtDate=ms=>ms?new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(ms)):'';
+const mins=s=>s==null?'':(s>=60?Math.floor(s/60)+' min '+String(s%60).padStart(2,'0'):s+' s');
+const median=a=>{const v=a.filter(x=>typeof x==='number').sort((x,y)=>x-y);if(!v.length)return null;const m=Math.floor(v.length/2);return v.length%2?v[m]:Math.round((v[m-1]+v[m])/2)};
+async function load(){const out=document.getElementById('out');out.innerHTML='<p class="empty">Chargement…</p>';
+  try{const r=await fetch(DB+'/sessions.json');if(!r.ok)throw new Error(r.status);const data=await r.json()||{};
+    rows=Object.entries(data).filter(([,s])=>s&&s.info).map(([id,s])=>({id,...s.info,tasks:s.tasks||{},summary:s.summary||null,events:Object.values(s.events||{}).sort((a,b)=>a.t-b.t)})).sort((a,b)=>b.startedAt-a.startedAt);
+    draw()}catch(e){out.innerHTML='<p class="err">Impossible de lire les résultats. Vérifiez la connexion et les règles de la base.</p>'}}
+function filtered(){const r=document.getElementById('role').value;return rows.filter(x=>!r||x.role===r)}
+function draw(){const list=filtered(),out=document.getElementById('out');
+  if(!list.length){out.innerHTML='<p class="empty">Aucune séance pour l’instant. Démarrez-en une depuis le mode facilitateur de l’application.</p>';return}
+  const done=list.filter(x=>x.summary),conf=done.map(x=>x.summary.confidence).filter(Boolean);
+  const allTasks=list.flatMap(x=>Object.values(x.tasks));const alone=allTasks.filter(t=>t.status==='seul').length;
+  const roll=list.flatMap(x=>x.events.filter(e=>e.type==='appel_enregistre').map(e=>Number((e.detail.match(/\d+/)||[])[0]))).filter(n=>!isNaN(n));
+  let h=`<div class="kpis"><div class="kpi"><b>${list.length}</b><span>séances (${done.length} terminées)</span></div><div class="kpi"><b>${allTasks.length?Math.round(alone*100/allTasks.length)+' %':'–'}</b><span>tâches réussies sans aide</span></div><div class="kpi"><b>${conf.length?(conf.reduce((a,b)=>a+b,0)/conf.length).toFixed(1):'–'}</b><span>confiance moyenne / 5</span></div><div class="kpi"><b>${roll.length?mins(median(roll)):'–'}</b><span>appel de 60 élèves (médiane)</span></div></div>`;
+  const byTask={};list.forEach(x=>Object.entries(x.tasks).forEach(([k,t])=>{(byTask[k]=byTask[k]||{label:t.label||k,items:[]}).items.push(t)}));
+  const keys=Object.keys(byTask).sort();
+  if(keys.length){h+=`<h2>Par tâche</h2><div class="scroll"><table><thead><tr><th>Tâche</th><th>Essais</th><th>Seul</th><th>Avec aide</th><th>Échec</th><th>Durée médiane</th><th>Répartition</th></tr></thead><tbody>${keys.map(k=>{const it=byTask[k].items,n=it.length,c=s=>it.filter(t=>t.status===s).length,a=c('seul'),b=c('aide'),e=c('echec');return `<tr><td><b>${esc(k)}</b> ${esc(byTask[k].label)}</td><td class="num">${n}</td><td class="num">${a}</td><td class="num">${b}</td><td class="num">${e}</td><td class="num">${mins(median(it.map(t=>t.seconds)))}</td><td><div class="bar" aria-label="${a} seul, ${b} avec aide, ${e} échec"><i style="width:${a*100/n}%;background:var(--ok)"></i><i style="width:${b*100/n}%;background:var(--gold)"></i><i style="width:${e*100/n}%;background:var(--red)"></i></div></td></tr>`}).join('')}</tbody></table></div>`}
+  h+=`<h2>Séances</h2><div class="scroll"><table><thead><tr><th>Date</th><th>Participant</th><th>Profil</th><th>Lieu · langue · téléphone</th><th>Tâches</th><th>Durée</th><th>Confiance</th><th>Simulation comprise</th><th>Notes et actions</th></tr></thead><tbody>${list.map(x=>`<tr><td class="num">${fmtDate(x.startedAt)}</td><td><b>${esc(x.participant)}</b>${x.room?`<br><small>salle ${esc(x.room)}</small>`:''}</td><td>${esc(ROLE[x.role]||x.role)}</td><td>${esc([x.place,LANG[x.lang]||x.lang,DEV[x.device]||x.device].filter(Boolean).join(' · '))}</td><td>${Object.entries(x.tasks).sort().map(([k,t])=>`<span class="st ${esc(t.status)}">${esc(k)} ${esc(ST[t.status]||t.status)}${t.seconds!=null?' · '+t.seconds+' s':''}</span>`).join('')||'–'}</td><td class="num">${x.summary?mins(x.summary.durationSec):'en cours'}</td><td class="num">${x.summary?.confidence??'–'}</td><td>${esc(x.summary?.understood||'–')}${x.summary?.value?`<br><small>valeur : ${esc(x.summary.value)}</small>`:''}</td><td><div class="note">${esc(x.summary?.note||'')}</div>${x.events.length?`<details><summary>${x.events.length} actions</summary><ol>${x.events.map(e=>`<li>${mins(e.t)} · ${esc(e.type)}${e.detail?' · '+esc(e.detail):''}</li>`).join('')}</ol></details>`:''}</td></tr>`).join('')}</tbody></table></div>`;
+  out.innerHTML=h}
+function exportCsv(){const list=filtered();const keys=[...new Set(list.flatMap(x=>Object.keys(x.tasks)))].sort();
+  const head=['date','participant','profil','lieu','langue','telephone','salle','duree_s','confiance','simulation_comprise','valeur',...keys.flatMap(k=>[k+'_statut',k+'_s']),'nb_actions','duree_appel_s','notes'];
+  const q=v=>{v=String(v??'');return /[";\n,]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+  const lines=list.map(x=>{const roll=x.events.find(e=>e.type==='appel_enregistre');return [new Date(x.startedAt).toISOString(),x.participant,ROLE[x.role]||x.role,x.place,LANG[x.lang]||x.lang,DEV[x.device]||x.device,x.room,x.summary?.durationSec,x.summary?.confidence,x.summary?.understood,x.summary?.value,...keys.flatMap(k=>[x.tasks[k]?.status,x.tasks[k]?.seconds]),x.events.length,roll?(roll.detail.match(/\d+/)||[''])[0]:'',x.summary?.note].map(q).join(';')});
+  const blob=new Blob(['﻿'+[head.join(';'),...lines].join('\n')],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ecolelien-resultats-pilote.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+document.getElementById('role').addEventListener('change',draw);
+load();
+</script>
+</body>
+</html>
