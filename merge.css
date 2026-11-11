@@ -50,3 +50,6 @@ body.vue-theme-dark{--td-ink:#e8efe9;--td-muted:#a9b8ae;--td-line:#34413b;--td-c
 .attendance-person:has(button[aria-pressed="true"][aria-label$=": En retard"]){background:#fdf3dd;border-radius:10px;padding-left:10px;padding-right:6px}
 .attendance-person:has(button[aria-pressed="true"]) small{font-weight:700;color:#7a2e21}
 .doc-internal{font-size:12px;color:#525d6b;font-style:italic}
+
+.sn-note{margin:0 0 14px;font-size:13.5px;line-height:1.5}
+.sn-event .datebox strong{font-size:13px}

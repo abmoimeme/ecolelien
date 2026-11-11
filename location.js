@@ -1,6 +1,6 @@
 'use strict';
 const academies={pg:{label:'IA de Pikine-Guédiawaye',iefs:[['keur','IEF de Keur Massar'],['guediawaye','IEF de Guédiawaye'],['pikine','IEF de Pikine'],['thiaroye','IEF de Thiaroye']]},dakar:{label:'IA de Dakar',iefs:[['almadies','IEF des Almadies'],['grand','IEF de Grand Dakar'],['parcelles','IEF des Parcelles Assainies'],['plateau','IEF de Dakar Plateau']]},rufisque:{label:'IA de Rufisque',iefs:[['diamniadio','IEF de Diamniadio'],['rufisque','IEF de Rufisque Commune'],['sangalkam','IEF de Sangalkam']]}};
-const schoolCandidates=[{id:'demo-malika',name:'École pilote Malika Plage',type:'Établissement fictif',status:'Démonstration',source:null,notes:'Données fictives. Aucun compte réel.'}];
+const schoolCandidates=[{id:'demo-malika',name:'Groupe scolaire pilote Malika Plage',type:'Établissement fictif',status:'Démonstration',source:null,notes:'Données fictives. Aucun compte réel.'}];
 let schoolContext;try{schoolContext=JSON.parse(localStorage.getItem('ecolelien-school-context'))}catch{}if(!schoolCandidates.some(s=>s.id===schoolContext?.school))schoolContext=null;
 let regionStep=schoolContext?3:1,chosenAcademy=schoolContext?.ia||'pg',chosenIEF=schoolContext?.ief||'keur',schoolQuery='';
 const originalLocationPersist=persist;persist=function(){if(schoolContext)localStorage.setItem('ecolelien-v3-school-'+schoolContext.school,JSON.stringify(db));else originalLocationPersist()};
@@ -15,7 +15,7 @@ function locationFlow(){const ia=academies[chosenAcademy],inPilot=chosenAcademy=
 function filterSchools(){$('#school-results').innerHTML=schoolCandidates.filter(s=>s.name.toLowerCase().includes(schoolQuery.toLowerCase())).map(schoolCard).join('')||'<p class="empty">Aucun résultat dans cet annuaire de préparation.</p>'}
 function chooseSchool(id){if(chosenAcademy!=='pg'||chosenIEF!=='keur')return false;const s=schoolCandidates.find(s=>s.id===id);if(!s)return false;if(schoolContext)persist();schoolContext={region:'Dakar',ia:chosenAcademy,ief:chosenIEF,commune:'Malika',quartier:'Malika Plage',school:id};localStorage.setItem('ecolelien-school-context',JSON.stringify(schoolContext));loadSchoolState(id);account=null;sessionStorage.removeItem('ecolelien-v3-account');page='Accueil';window.locationChoosing=false;render();return true}
 function changeSchool(){if(schoolContext)persist();regionStep=1;window.locationChoosing=true;render()}
-function schoolDetails(){screenModal(`<h2>École pilote Malika Plage</h2><p>Dakar · IEF de Keur Massar · Malika Plage</p><p>Établissement fictif. Aucun compte réel.</p><div class="actions"><button onclick="closeModal()">Fermer</button><button onclick="closeModal();changeSchool()">Changer d’école</button></div>`)}
+function schoolDetails(){screenModal(`<h2>Groupe scolaire pilote Malika Plage</h2><p>Dakar · IEF de Keur Massar · Malika Plage</p><p>Établissement fictif. Aucun compte réel.</p><div class="actions"><button onclick="closeModal()">Fermer</button><button onclick="closeModal();changeSchool()">Changer d’école</button></div>`)}
 const priorLocationRender=render;function renderSchoolApp(){window.locationChoosing=false;render()}
 render=function(){if(!schoolContext||window.locationChoosing){$('#root').innerHTML=locationFlow();document.body.classList.toggle('facilitator-mode',facilitator);return}priorLocationRender();};
 render();

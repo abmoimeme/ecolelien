@@ -1,7 +1,7 @@
 # ÉcoleLien
 
 Interactive prototype of a school–family app for Senegal: parents, students, teachers and school leadership in one place.
-All data is fictitious (pilot school "École pilote Malika Plage"). No message, payment or SMS is ever sent.
+All data is fictitious (pilot school "Groupe scolaire pilote Malika Plage"). No message, payment or SMS is ever sent.
 
 ## Test online
 - Preview with the four accounts: `index.html`

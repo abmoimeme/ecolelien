@@ -31,7 +31,7 @@ function mergedTodoItems(ids){
     text:ok?'Réception confirmée · '+esc(db.receiptChannels?.[p.id]||'Application')+'. La direction voit votre confirmation.':esc(p.body),
     action:ok?'':`<button class="primary" onclick="confirmNotice('${p.id}')">${wo?'Jot naa bataaxal bi · Confirmer':'Confirmer la réception'}</button>`})});
   if(ids.includes('ibrahima')){const abs=db.absence.status,ok=abs==='Transmise'||abs==='Justifiée';items.push({done:ok,tag:'Absence',who:'Ibrahima · 4e A',title:'Absence du '+displayDay(isoDay(-2))+', 8 h à 10 h',
-    text:abs==='Transmise'?'Justification transmise, en attente de validation par l’école.':abs==='Justifiée'?'Absence justifiée par l’école.':abs==='Précision demandée'?'L’école demande une précision sur votre justification.':'À justifier auprès de la vie scolaire.',
+    text:abs==='Transmise'?'Justification transmise, en attente de validation par l’école.':abs==='Justifiée'?'Absence justifiée par l’école.':abs==='Précision demandée'?'L’école demande une précision sur votre justification.':'À justifier auprès du surveillant général.',
     action:ok?'':`<button class="primary" onclick="justifyAbsence()">${abs==='Précision demandée'?'Compléter':'Justifier'}</button>`})}
   db.forms.filter(f=>ids.includes(f.student)).forEach(f=>{const r=db.responses[f.id];items.push({done:!!r,tag:'Autorisation',who:students[f.student].short+' · '+students[f.student].class,title:esc(f.title),
     text:r?'Votre réponse : '+esc(r.choice)+'.':'Réponse attendue avant le '+displayDay(f.deadline)+'.',
@@ -40,7 +40,7 @@ function mergedTodoItems(ids){
     text:db.booking?'Votre créneau : '+esc(db.booking)+'.':displayDay(isoDay(3))+'. Réservez un créneau avec Mme Diop.',
     action:db.booking?'':`<button class="primary" onclick="go('Calendrier')">Réserver</button>`});
   const owed=ids.reduce((t,id)=>t+balanceStudent(id),0);
-  items.push({done:owed===0,tag:'Frais',who:ids.length>1?'Famille Fall':students[ids[0]].short,title:'Frais de scolarité',
+  items.push({done:owed===0,tag:'Frais',who:ids.length>1?'Famille Fall':students[ids[0]].short,title:'Mensualité scolaire',
     text:owed?money(owed)+' à régler avant le '+displayDay(isoDay(6))+'. Reçu disponible après chaque versement.':'Frais réglés. Vos reçus sont dans Scolarité.',
     action:owed?`<button class="primary" onclick="go('Scolarité')">Voir et payer</button>`:''});
   return items}
