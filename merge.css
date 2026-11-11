@@ -53,3 +53,19 @@ body.vue-theme-dark{--td-ink:#e8efe9;--td-muted:#a9b8ae;--td-line:#34413b;--td-c
 
 .sn-note{margin:0 0 14px;font-size:13.5px;line-height:1.5}
 .sn-event .datebox strong{font-size:13px}
+
+/* École privée : mensualités */
+.fee-plan{font-size:13px;color:#525d6b;margin:0 0 8px}
+.fee-total{font-size:13px;font-weight:600;margin-top:8px}
+.fee-later summary{cursor:pointer;font-size:13px;font-weight:600;color:#0b6049;padding:8px 0}
+.fee-reminder{border-left:4px solid #b37a35}
+.fee-actions{margin:4px 0 12px}
+.fee-real td{background:#fdf3dd}
+.fee-bar{display:grid;grid-template-columns:110px 1fr 48px;align-items:center;gap:8px;margin:6px 0;font-size:13px}
+.fee-bar div{height:10px;background:#e7ede6;border-radius:5px;overflow:hidden}.fee-bar i{display:block;height:100%;background:#0b6049;border-radius:5px}
+.fee-bar b{text-align:right;font-variant-numeric:tabular-nums}
+.tag.red{background:#fbeae6;color:#a8402f}
+/* PLANETE */
+.planete{border-left:4px solid #0b6049}
+.pl-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.pl-ien{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.pl-ien span{font-size:12.5px;background:#eef4ef;border-radius:999px;padding:4px 10px;font-variant-numeric:tabular-nums}

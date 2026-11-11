@@ -30,6 +30,8 @@ Open a terminal in this folder and run `python -m http.server 8000`, then go to 
 ## Files
 - `index.html` preview page, `app.html` the app
 - `app.js`, `screens.js`, `location.js` base prototype; `merge.js` / `merge.css` pilot improvements
+- `senegal.js` Senegal grading and calendar (élémentaire /10 by trimester, moyen /20 by semester, CFEE, BFEM)
+- `school.js` private-school fees (inscription + 10 mensualités, Wave / Orange Money / Free Money, reminders, unpaid tracking) and PLANETE positioning
 - `live.js`, `live.css`, `config.js` demo room and test sessions; `resultats.html` pilot results
 - `pwa.js`, `sw.js`, `manifest.webmanifest` installable web app and offline cache
 - `database.rules.json` Realtime Database security rules

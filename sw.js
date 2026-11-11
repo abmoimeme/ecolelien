@@ -1,6 +1,6 @@
 'use strict';
-const CACHE='ecolelien-pilot-v7';
-const ASSETS=['./app.html','./index.html','./app.css','./screens.css','./readability.css?v=2','./readability.css','./pilot.css?v=3','./pilot.css','./senegal.js?v=6','./senegal.js','./app.js','./screens.js','./location.js','./pwa.js','./merge.js?v=4','./merge.js','./merge.css?v=4','./merge.css','./live.css?v=5','./live.css','./live.js?v=5','./live.js','./config.js?v=5','./config.js','./resultats.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+const CACHE='ecolelien-pilot-v8';
+const ASSETS=['./app.html','./index.html','./app.css','./screens.css','./readability.css?v=2','./readability.css','./pilot.css?v=3','./pilot.css','./senegal.js?v=6','./senegal.js','./app.js','./screens.js','./location.js','./pwa.js','./merge.js?v=4','./merge.js','./merge.css?v=4','./merge.css','./live.css?v=5','./live.css','./live.js?v=5','./live.js','./school.js?v=7','./school.js','./config.js?v=5','./config.js','./resultats.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS))));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('ecolelien-')&&key!==CACHE).map(key=>caches.delete(key))))));
 self.addEventListener('fetch',event=>{

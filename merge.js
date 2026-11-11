@@ -41,7 +41,7 @@ function mergedTodoItems(ids){
     action:db.booking?'':`<button class="primary" onclick="go('Calendrier')">Réserver</button>`});
   const owed=ids.reduce((t,id)=>t+balanceStudent(id),0);
   items.push({done:owed===0,tag:'Frais',who:ids.length>1?'Famille Fall':students[ids[0]].short,title:'Mensualité scolaire',
-    text:owed?money(owed)+' à régler avant le '+displayDay(isoDay(6))+'. Reçu disponible après chaque versement.':'Frais réglés. Vos reçus sont dans Scolarité.',
+    text:owed?money(owed)+' à régler avant le '+(typeof feeDueDay==='function'?feeDueDay():displayDay(isoDay(6)))+'. Wave, Orange Money ou Free Money ; reçu envoyé aussi au payeur.':'Frais réglés. Vos reçus sont dans Scolarité.',
     action:owed?`<button class="primary" onclick="go('Scolarité')">Voir et payer</button>`:''});
   return items}
 function mergedTodoRow(i){return `<article class="td-item${i.urgent&&!i.done?' urgent':''}${i.done?' done':''}"><div class="td-meta"><span class="td-tag">${i.done?'✓ Fait':i.tag}</span><span>${i.who}</span></div><h3>${i.title}</h3><p>${i.text}</p>${i.action?`<div class="td-action">${i.action}</div>`:''}</article>`}
