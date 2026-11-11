@@ -1,0 +1,108 @@
+/* Readable typography and contrast on light surfaces. */
+:root{--read-ink:#202b38;--read-muted:#525d6b;--read-purple:#247565;--read-green:#0b6049}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body:not(.vue-theme-dark){--ink:var(--read-ink);--muted:var(--read-muted);--green:var(--read-green);color:var(--read-ink)}
+body:not(.vue-theme-dark) :is(.subtitle,.meta,.help,.hint,.mini,.footnote,.phone-hint,.location-sub,.location-help,.school-details,.location-notes,.location-foot,.kpi-caption){color:var(--read-muted)}
+body:not(.vue-theme-dark) :is(.location-card,.school-option,.card,.student-card,.assignment-list,.contact-display,.account){color:var(--read-ink)}
+body:not(.vue-theme-dark) :is(.card,.student-card,.account,.location-card,.school-option) :is(p,small){color:var(--read-muted)}
+body:not(.vue-theme-dark) :is(.location-brand span,.school-cardhead p,.location-notes h3,.profile-item small,.student-card p,.assignment-row .tiny,.assignment-row .due,.stat small,.stat span,.stat .label,th){color:var(--read-muted)}
+body:not(.vue-theme-dark) :is(.school-context button,.school-context small,.school-option a,.location-notes a,.return-link){color:var(--read-purple)}
+body:not(.vue-theme-dark) :is(.location-steps button,.location-steps b){color:#33665c}
+body:not(.vue-theme-dark) .location-steps button.active{background:#247565;color:white}
+body:not(.vue-theme-dark) :is(.vue-summary,.vue-note){background:#eaf5f3;color:#32675c}
+body:not(.vue-theme-dark) :is(.notice,.location-path){background:#edf4e7;color:#385830}
+body:not(.vue-theme-dark) :is(.notice.amber,.note,.demo){background:#fff0d9;color:#78501b}
+body:not(.vue-theme-dark) .tag{background:#e6f3e9;color:#265b37}
+body:not(.vue-theme-dark) .tag.amber{background:#fbefda;color:#795019}
+body:not(.vue-theme-dark) .tag.blue{background:#e8edf8;color:#294c8a}
+body:not(.vue-theme-dark) .tag.rose{background:#fae9e5;color:#903a30}
+body:not(.vue-theme-dark) .bottom-nav button{color:#525d6b}
+body:not(.vue-theme-dark) .bottom-nav button.active{color:#0b6049}
+body:not(.vue-theme-dark) .assignment-row .due strong{color:#202b38}
+body:not(.vue-theme-dark) .assignment-details .row span:first-child{color:#525d6b}
+body:not(.vue-theme-dark) :is(input,select,textarea){background:#fff;color:#202b38;border-color:#8993a0}
+body:not(.vue-theme-dark) ::placeholder{color:#626c79;opacity:1}
+body:not(.vue-theme-dark) :is(.primary,.dark){background:#0b6049;color:white}
+body:not(.vue-theme-dark) .student-modules .grades{background:#175d93;border-color:#175d93;color:white}
+body:not(.vue-theme-dark) .student-modules .grades span{color:white}
+body:not(.vue-theme-dark) .positive{color:#176336}
+body:not(.vue-theme-dark) .negative{color:#963c32}
+body:not(.vue-theme-dark) :is(.pill,.badge,.notice-result,.formula){color:#31582c}
+body:not(.vue-theme-dark) .link{color:#0b6049}
+body:not(.vue-theme-dark) .brand span{color:#86551e}
+body:not(.vue-theme-dark) .intro p,body:not(.vue-theme-dark) .note{color:#525d6b}
+body:not(.vue-theme-dark) .intro .demo{color:#62451a}
+body:not(.vue-theme-dark) :is(.login-intro,.hero) p{color:#d6e6dd}
+body:not(.vue-theme-dark) :is(.login-intro,.hero) :is(.eyebrow,.footnote){color:#c9dfd0}
+body:not(.vue-theme-dark) :is(.login-intro,.hero,.vue-banner,.id-card) :is(h1,h2,h3){color:#fff}
+body:not(.vue-theme-dark) .vue-banner p{color:#e4f2ef}
+body:not(.vue-theme-dark) .id-card :is(p,small){color:#e6f3f0}
+body:not(.vue-theme-dark) .top :is(.top-left,.identity small,.ghost){color:#fff}
+body:not(.vue-theme-dark) .hero button{color:#294a38}
+.vue-action{color:#fff!important}.vue-action:nth-child(2){background:#237665!important}.vue-action:nth-child(3){background:#955015!important}
+.student-card .events{background:#955015!important;color:#fff!important}
+.subject-tile:nth-child(6n+1){background:#00657a!important}.subject-tile:nth-child(6n+2){background:#174b91!important}.subject-tile:nth-child(6n+3){background:#227766!important}.subject-tile:nth-child(6n+4){background:#267364!important}.subject-tile:nth-child(6n+5){background:#92511c!important}.subject-tile:nth-child(6n+6){background:#6b5516!important}
+.subject-tile :is(h3,strong,small,.subject-teacher,.coefficient){color:white!important;opacity:1!important}
+.course-hero{background:#175d93!important;color:white}.course-hero :is(h2,p,small){color:white!important}
+body{font-size:15px;line-height:1.55}
+:is(.meta,.help,.hint,.footnote,.phone-hint,.location-sub,.location-help,.school-details,.location-notes,.location-foot,.kpi-caption,.school-context small,.school-cardhead p,.tag,.demo,.stat small,.stat .label,.account small,.account p,.location-brand span,.school-option a,.location-notes a,.account .arrow){font-size:12px!important;line-height:1.55!important}
+:is(label,th,.small,.location-steps button,.school-option .primary,.account-tabs button,.module-grid button,.bottom-nav button,.student-modules button,.top-left,.identity b){font-size:12px!important}
+:is(.subject-tile .subject-teacher,.subject-tile .coefficient,.assignment-row .tiny,.assignment-row .due){font-size:11px!important;line-height:1.45}
+.screens .subject-tile h3{font-size:12px;min-height:35px;line-height:1.4}
+.screens .subject-tile{min-height:160px}
+.screens .module-grid button{min-height:110px;line-height:1.4}
+.school-context small{white-space:normal}.location-steps button{flex-wrap:wrap;justify-content:center;min-height:52px}
+button:disabled{opacity:1;color:#59606a!important;background:#e5e7eb!important;border:1px solid #bcc2ca}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #174b91;outline-offset:3px}
+.vue-theme-dark :is(.meta,.help,.hint,.footnote,.phone-hint,.location-sub,.location-help,.school-details,.location-notes,.location-foot,.kpi-caption,.school-cardhead p,.profile-item small,.assignment-row .tiny){color:#becbc8}
+.vue-theme-dark :is(.location-brand span,.location-notes h3,.school-context small){color:#c3dcd7}
+.vue-theme-dark .tag{background:#d8eee1;color:#265b37}.vue-theme-dark .tag.amber{background:#fbefda;color:#795019}.vue-theme-dark .tag.blue{background:#e8edf8;color:#294c8a}
+.vue-theme-dark button:disabled{background:#3b3b43!important;color:#ceced5!important;border-color:#777}
+.vue-theme-dark :is(.sheet,.drawer,dialog) .help{color:#becbc8}
+@media(max-width:780px){input:not([type=checkbox]):not([type=radio]),select,textarea{font-size:16px!important}.page-head{flex-wrap:wrap}.screen-top h1{font-size:18px!important}.bottom-nav button{font-size:11px!important;min-height:52px;max-width:95px;white-space:normal}.location-shell h1{font-size:26px!important}.school-option .pillrow button{white-space:normal;line-height:1.45}.school-context b{font-size:13px}.screens .subject-grid{gap:8px}.screens .subject-tile{padding:12px 7px}.screens .subject-tile strong{font-size:22px}.account-tabs button{padding:13px 3px}.demo{font-size:11px!important}.main{padding-bottom:115px}}
+
+body:not(.vue-theme-dark) .intro .eyebrow{color:#466340}.mobiletools{font-size:12px}.mobiletools button{font-size:12px}.vue-theme-dark .bottom-nav button{color:#becbc8}.vue-theme-dark .bottom-nav button.active{color:#bce5cf}
+/* Dark theme controls must own their foreground and background together. */
+.vue-theme-dark button{background:#35413f;color:#edf7f5}
+.vue-theme-dark button.primary,.vue-theme-dark button.dark{background:#0b6049;color:#fff}
+.vue-theme-dark button.danger{background:#59302f;color:#ffe8e3}
+.vue-theme-dark button.ghost{background:transparent;color:#cdddda}
+.vue-theme-dark .quick button{background:#edf3e8;color:#213d2f;font-weight:700}
+.vue-theme-dark .quick button span{color:#2e6845}
+.vue-theme-dark .row button.small:not(.primary):not(.dark):not(.danger){background:#edf3e8;color:#213d2f;border:1px solid #b2c5ac}
+.vue-theme-dark .tabs button{background:#35413f;color:#edf7f5}
+.vue-theme-dark .tabs button.active{background:#d8eee1;color:#245c43}
+.vue-theme-dark .account{background:#252f2d;color:#edf7f5;border-color:#455451}
+.vue-theme-dark .account :is(p,small){color:#becbc8}
+.vue-theme-dark .account .arrow{color:#bce5cf}
+.vue-theme-dark .child{background:#2b3634;color:#edf7f5;border-color:#455451}
+.vue-theme-dark .child.active{background:#334b3b;color:#edf7f5;border-color:#92b98b}
+.vue-theme-dark .child small{color:#becbc8}
+.vue-theme-dark .pillrow button:not(.primary):not(.danger):not(.events){background:#35413f;color:#edf7f5}
+.vue-theme-dark .hero button{background:#e8c181;color:#294a38}
+.vue-theme-dark .student-card .events{background:#955015;color:#fff}
+.vue-theme-dark .student-summary{background:transparent;color:#edf7f5}
+.vue-theme-dark .module-heading button{background:transparent;color:#edf7f5}
+.vue-theme-dark .assignment-row,.vue-theme-dark .grade-row{background:transparent;color:#edf7f5}
+.vue-theme-dark .assignment-row .due strong{color:#edf7f5}
+.vue-theme-dark .conversation{background:transparent;color:#edf7f5}
+.vue-theme-dark .conversation.active{color:#bce5cf}
+.vue-theme-dark .account-tabs button{background:transparent;color:#edf7f5}
+.vue-theme-dark .account-tabs button.active{background:#35413f;color:#edf7f5}
+.vue-theme-dark .return-link{background:transparent;color:#baded7}
+.vue-theme-dark .location-steps button{background:#2d403c;color:#cee7e2}
+.vue-theme-dark .location-steps button.active{background:#2a6f61;color:white}
+.vue-theme-dark .location-steps b{background:#e7f3f1;color:#33665c}
+.vue-theme-dark .location-brand span{color:#becbc8}
+.vue-theme-dark .sheet .student-summary{background:#2b3634;color:#edf7f5}
+.vue-theme-dark .drawer button{background:transparent;color:#edf7f5}
+.vue-theme-dark .tutorial button{background:transparent;color:#edf7f5}
+.vue-theme-dark .screen-top button{background:transparent;color:#fff}
+.vue-theme-dark .bottom-nav button{background:transparent;color:#cdddda}
+.vue-theme-dark .bottom-nav button.active{background:transparent;color:#bce5cf}
+.screens.vue-theme-dark .statusbar{background:#272727!important;color:#f3f1f5!important}
+.screens.vue-theme-dark .statusbar .camera{background:#0b0b0d}
+.screens.vue-theme-dark .gesture{background:#cdddda}
+body:not(.vue-theme-dark) .quick button{background:#f2f6ee;color:#213d2f;font-weight:700}
+body:not(.vue-theme-dark) .quick button span{color:#2e6845}
+body:not(.vue-theme-dark) .row button.small:not(.primary):not(.dark):not(.danger){background:#edf3e8;color:#213d2f}

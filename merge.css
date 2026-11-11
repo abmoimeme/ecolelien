@@ -1,0 +1,52 @@
+/* ÉcoleLien · fusion v4 — parent « À faire » and facilitator bar, on the shared green/gold identity */
+:root{--td-green:#0b6049;--td-ink:#202b38;--td-muted:#525d6b;--td-line:#dfe7dc;--td-card:#fff;--td-bg:#f5f7f3;--td-gold:#b37a35;--td-gold-soft:#fbf1e2;--td-red:#a8402f;--td-red-soft:#fbeae6;--td-amber:#8a5a12;--td-ok:#1d6b45;--td-ok-soft:#e5f3ea}
+body.vue-theme-dark{--td-ink:#e8efe9;--td-muted:#a9b8ae;--td-line:#34413b;--td-card:#1f2724;--td-bg:#151a18;--td-gold-soft:#3a2f20;--td-red-soft:#3d2420;--td-ok-soft:#1e3328}
+
+.td{background:var(--td-card);border:1px solid var(--td-line);border-top:4px solid var(--td-green);border-radius:16px;padding:16px 14px 12px;margin:12px 0 14px;color:var(--td-ink)}
+.td-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 10px}
+.td-head h2{margin:0;font-size:19px;letter-spacing:-.3px;color:var(--td-ink)}
+.td-count{font-size:12px;font-weight:700;background:var(--td-gold-soft);color:var(--td-amber);padding:4px 10px;border-radius:999px}
+.td-count.clear{background:var(--td-ok-soft);color:var(--td-ok)}
+.td-item{padding:13px 12px;border-radius:12px;background:var(--td-bg);border-left:4px solid var(--td-gold);margin-bottom:9px}
+.td-item.urgent{background:var(--td-red-soft);border-left-color:var(--td-red)}
+.td-item.done{border-left-color:var(--td-ok);opacity:.85}
+.td-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12px;color:var(--td-muted)}
+.td-tag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--td-amber)}
+.td-item.urgent .td-tag{color:var(--td-red)}.td-item.done .td-tag{color:var(--td-ok)}.td-tag.info{color:var(--td-green)}
+.td-item h3{margin:5px 0 3px;font-size:15.5px;line-height:1.3;color:var(--td-ink)}
+.td-item p{margin:0;font-size:13.5px;line-height:1.5;color:var(--td-muted)}
+.td-action{margin-top:10px}
+.td-action button{width:100%;min-height:46px;font-size:15px;font-weight:700;border-radius:11px;border:0}
+.td-action button.primary{background:var(--td-green)!important;color:#fff!important}
+.td-item.urgent .td-action button.primary{background:var(--td-red)!important}
+.td-follow{display:flex!important;align-items:center;gap:10px;width:100%;text-align:left;background:transparent!important;border:1px dashed var(--td-line)!important;border-radius:12px;padding:12px!important;margin:2px 0 6px;color:var(--td-ink)!important;min-height:48px;font-size:14px}
+.td-follow-text{flex:1}
+.td-empty{padding:12px;border-radius:12px;background:var(--td-ok-soft);color:var(--td-ok);font-weight:600;margin:0 0 8px}
+.td-done{margin-top:6px;border-top:1px solid var(--td-line);padding-top:6px}
+.td-done summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--td-muted);padding:8px 2px;min-height:36px}
+.td-child{font-size:14px;margin:16px 0 6px}
+
+.fac-bar{background:#fff7e8;border:1px dashed var(--td-gold);border-radius:14px;padding:12px 14px;margin:0 0 12px;color:#5b4216;font-size:13px}
+.fac-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.fac-head span{font-size:11px;opacity:.8}
+.fac-tasks{margin:6px 0;padding-left:0;list-style:none}
+.fac-tasks li{display:flex;gap:8px;margin:5px 0;line-height:1.4}
+.fac-tasks li b{min-width:24px;color:var(--td-gold)}
+.fac-note{font-size:12px;margin:6px 0;line-height:1.45}
+.fac-actions{display:flex;flex-wrap:wrap;gap:6px}
+.fac-actions button{background:#fff;border:1px solid #e6cfa4;color:#5b4216}
+
+/* Attendance: one-line sticky save bar that never covers the counter */
+.attendance-summary{top:8px!important}
+.attendance-save{flex-wrap:nowrap!important;bottom:92px!important;padding:8px 0!important;align-items:stretch}
+.attendance-save button{min-height:48px;white-space:nowrap}
+.attendance-save button.primary{flex:1;font-weight:700}
+.attendance-save button:nth-child(n+3){display:none}
+.attendance-save button:not(.primary){flex:0 0 auto;padding:0 14px}
+.attendance-taps button[aria-pressed="true"]{color:#fff!important;border-color:transparent!important}
+.attendance-taps button[aria-pressed="true"][aria-label$=": Absent"]{background:#a8402f!important}
+.attendance-taps button[aria-pressed="true"][aria-label$=": En retard"]{background:#8a5a12!important}
+.attendance-person:has(button[aria-pressed="true"][aria-label$=": Absent"]){background:#fbeae6;border-radius:10px;padding-left:10px;padding-right:6px}
+.attendance-person:has(button[aria-pressed="true"][aria-label$=": En retard"]){background:#fdf3dd;border-radius:10px;padding-left:10px;padding-right:6px}
+.attendance-person:has(button[aria-pressed="true"]) small{font-weight:700;color:#7a2e21}
+.doc-internal{font-size:12px;color:#525d6b;font-style:italic}
